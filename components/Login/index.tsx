@@ -33,6 +33,7 @@ export const Login = () => {
 
       // 🔍 Obtiene nonce desde el backend
       const res = await fetch(`/api/nonce`);
+      console.log("error", res);
       if (!res.ok) {
         throw new Error("Error obteniendo el nonce");
       }
