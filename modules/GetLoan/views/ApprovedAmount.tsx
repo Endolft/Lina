@@ -55,7 +55,7 @@ const ApprovedAmount = ({ handleBack, next }: Props) => {
         <h4 className="text-green-900 font-semibold">Payment Methods</h4>
         <ul className="mt-2  text-n3 s list-disc pl-4 space-y-1">
           <li>Bank Transfer</li>
-          <li>Stablecoins (USDT, USDC, or Lina's token)</li>
+          <li>Stablecoins (USDT, USDC, or Lina&apos;s token)</li>
           <li>Automatic deduction from agricultural income (if applicable)</li>
         </ul>
       </div>
