@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKER_TAG = 'lina-frontend'
-        PORT = "3023"
+        PORT = "3024"
     }
     stages {
         stage('Build') {
