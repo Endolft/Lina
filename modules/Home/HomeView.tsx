@@ -33,7 +33,6 @@ const HomeView: HomeViewType = ({ handleRedirectNotification }) => {
             timeAgo="5 min ago"
             type="warning"
           />
-          x
         </div>{" "}
         <h5 className="font-bold">My loan options</h5>
         <CardLoan />

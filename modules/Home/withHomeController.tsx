@@ -7,7 +7,7 @@ const withHomeController = (View: HomeViewType) =>
     const [name, _setName] = useState<string>("World");
     const router = useRouter();
     const handleRedirectNotification = () => {
-      router.push("/farm/notification");
+      router.push("/farm/notifications");
     };
 
     const viewProps: HomeViewProps = {
