@@ -8,6 +8,8 @@ import "animate.css";
 import "@/styles/animations.css";
 import NextAuthProvider from "@/components/next-auth-provider";
 import "@worldcoin/mini-apps-ui-kit-react/styles.css";
+import { useIsMobile } from "@/hooks/useIsMobile";
+import { MobileGuard } from "@/components/MobileGuard/MobileGuard";
 
 const sora = Sora({ subsets: ["latin"] });
 
@@ -27,6 +29,7 @@ export default function RootLayout({
       ssr: false,
     }
   );
+
   return (
     <html lang="en">
       <head>
@@ -44,7 +47,9 @@ export default function RootLayout({
       <body className={sora.className}>
         <NextAuthProvider>
           <ErudaProvider>
-            <MiniKitProvider>{children}</MiniKitProvider>
+            <MiniKitProvider>
+              <MobileGuard>{children}</MobileGuard>
+            </MiniKitProvider>
           </ErudaProvider>
         </NextAuthProvider>
       </body>

@@ -10,7 +10,7 @@ const CreateFarmView: CreateFarmViewType = ({
   renderCurrentView,
 }) => {
   return (
-    <main className="w-screen overflow-hidden h-screen flex p-4  flex-col items-center gap-6 ">
+    <main className="w-screen overflow-hidden h-screen flex p-4 py-6  flex-col items-center gap-6 ">
       <TransitionGroupLayout
         animationType={animationType}
         transitionGroupKey={activeDot ?? 0}

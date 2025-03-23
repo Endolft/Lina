@@ -8,7 +8,7 @@ const NotificationsView: NotificationsViewType = ({
   weatherAlerts,
 }) => {
   return (
-    <div className="space-y-4 flex flex-col p-4">
+    <div className="space-y-4 flex flex-col p-4 animate__animated animate__slideInRight ">
       <button className="flex w-full items-center gap-2 " onClick={handleBack}>
         <ChevronIcon size="small" type="left" />
         <h6 className="text-n3">Back</h6>

@@ -49,7 +49,7 @@ const ProgressBar = ({
   }, [specialPoints]);
 
   return (
-    <div className={cn("relative", WIDTH_STYLE)}>
+    <div className={cn("relative overflow-hidden", WIDTH_STYLE)}>
       <div className="flex flex-row items-center justify-between">
         <h6 className={cn("flex-1", TITLE_STYLE)} title={title}>
           {title}
@@ -67,7 +67,7 @@ const ProgressBar = ({
           <div
             className={cn(
               "absolute h-full", // Base
-              "animate__animated animate__slideInLeft transition-[width] duration-500 ease-linear", // Animación
+              "animate__animated animate__slideInLeft animate__slower transition-[width] duration-500 ease-linear", // Animación
               SECONDARY_BAR_STYLE // Estilo personalizado
             )}
             title={`${secondaryBarWidth}%`}
