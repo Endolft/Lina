@@ -13,6 +13,7 @@
     "@worldcoin/minikit-js": "1.6.1",
     "animate.css": "^4.1.1",
     "eruda": "^3.2.3",
+    "ethers": "^6.13.5",
     "jose": "^6.0.10",
     "leaflet": "^1.9.4",
     "leaflet-draw": "^1.0.4",

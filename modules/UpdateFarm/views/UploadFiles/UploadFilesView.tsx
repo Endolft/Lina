@@ -33,12 +33,29 @@ const UploadFilesView: React.FC<UploadFilesViewProps> = ({
     irrigation: "",
   });
 
-  const handleNext = () => {
+  const update = async () => {
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      next();
-    }, 4000);
+    const payload = {
+      args: [0, "demo", 1000, "low", Math.floor(Date.now() / 1000)],
+    };
+    try {
+      const resp = await fetch("/api/updateFarmStatus", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      console.log(resp);
+    } catch (e) {
+      console.error("Error updating farm data", e);
+    }
+    setIsLoading(false);
+    next();
+  };
+
+  const handleNext = () => {
+    update();
   };
 
   if (isLoading) {

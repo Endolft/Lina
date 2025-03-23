@@ -13,7 +13,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                sh "docker build --build-arg NEXT_PUBLIC_WORLDCOIN_APP_ID=$NEXT_PUBLIC_WORLDCOIN_APP_ID -t $DOCKER_TAG:1.0 ."
+                sh "docker build --build-arg NEXT_PUBLIC_WORLDCOIN_APP_ID=$NEXT_PUBLIC_WORLDCOIN_APP_ID --build-arg NEXT_PUBLIC_WORLDCOIN_API_KEY=$NEXT_PUBLIC_WORLDCOIN_API_KEY  --build-arg NEXT_PUBLIC_WORLDCOIN_ACTION_ID=$NEXT_PUBLIC_WORLDCOIN_ACTION_ID --build-arg NEXT_PUBLIC_WORLDCOIN_SIGNAL=$NEXT_PUBLIC_WORLDCOIN_SIGNAL -t $DOCKER_TAG:1.0 ."
             }
         }
         stage('Deploy') {
