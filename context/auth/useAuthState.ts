@@ -1,8 +1,10 @@
-"use client";
+import { useReducer, useEffect, useState, useCallback } from "react";
+import { toast } from "react-toastify";
+import { reducer, initialState } from "./reducer";
 import { MiniKit, WalletAuthInput } from "@worldcoin/minikit-js";
-import { useState } from "react";
-import Button from "@/components/Button";
 import { useRouter } from "next/navigation";
+import { ActionTypes } from "./types";
+import { HTTP_STATUS } from "@/constants";
 
 const walletAuthInput = (nonce: string): WalletAuthInput => {
   return {
@@ -15,22 +17,40 @@ const walletAuthInput = (nonce: string): WalletAuthInput => {
   };
 };
 
-type User = {
-  walletAddress: string;
-  username: string | null;
-  profilePictureUrl: string | null;
-};
+const useAuthState = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-export const Login = () => {
-  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
+  const refreshUserData = useCallback(async () => {
+    try {
+      const response = await fetch("/api/auth/me");
+
+      if (response.ok) {
+        const data = await response.json();
+        router.push("/farm/create");
+        if (data.user) {
+          dispatch({ type: ActionTypes.LOGIN, value: data.user });
+        }
+      }
+    } catch (error) {
+      toast.error("Error fetching user data");
+    }
+  }, []);
+
+  useEffect(() => {
+    refreshUserData();
+  }, [refreshUserData]);
+
   const handleLogin = async () => {
+    console.log("call");
     try {
       setLoading(true);
       const res = await fetch(`/api/nonce`);
       const { nonce } = await res.json();
+
+      alert(JSON.stringify(res));
 
       const { finalPayload } = await MiniKit.commandsAsync.walletAuth(
         walletAuthInput(nonce)
@@ -50,14 +70,17 @@ export const Login = () => {
             nonce,
           }),
         });
-        router.push("/farm/create");
 
-        if (response.status === 200) {
-          setUser(MiniKit.user);
+        if (
+          response.status === HTTP_STATUS.ok ||
+          response.status === HTTP_STATUS.created
+        ) {
+          dispatch({ type: ActionTypes.LOGIN, value: await response.json() });
         }
         setLoading(false);
       }
     } catch (error) {
+      alert(JSON.stringify(error));
       console.error("Login error:", error);
       setLoading(false);
     }
@@ -69,17 +92,26 @@ export const Login = () => {
         method: "POST",
       });
 
-      setUser(null);
+      dispatch({ type: ActionTypes.LOGOUT });
     } catch (error) {
       console.error("Logout error:", error);
     }
   };
 
-  return (
-    <div className="flex flex-col items-center">
-      <Button onClick={handleLogin} disabled={loading}>
-        {loading ? "Connecting..." : "Sign in"}
-      </Button>
-    </div>
-  );
+  const actions = {
+    loading,
+    handleLogin,
+    handleLogout,
+  };
+
+  return { ...state, ...actions };
 };
+
+useAuthState.defaultReturn = (): ReturnType<typeof useAuthState> => ({
+  ...initialState,
+  loading: false,
+  handleLogin: async () => {},
+  handleLogout: async () => {},
+});
+
+export default useAuthState;

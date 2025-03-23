@@ -1,0 +1,76 @@
+@keyframes slideInLeftWith3D {
+  from {
+    transform: translate3d(-100%, 0, 50px) scale(1);
+    opacity: 0;
+  }
+  to {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRightWith3D {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translate3d(100%, 0, 50px) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRightWith3D {
+  from {
+    transform: translate3d(100%, 0, -50px) scale(1);
+    opacity: 0;
+  }
+  to {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutLeftWith3D {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translate3d(-100%, 0, -50px) scale(1);
+    opacity: 1; /* Cambia la opacidad para una desaparición completa */
+  }
+}
+
+.animate__slideInRightWith3D {
+  animation-name: slideInRightWith3D;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.animate__slideOutLeftWith3D {
+  animation-name: slideOutLeftWith3D;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.animate__slideInLeftWith3D {
+  animation-name: slideInLeftWith3D;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.animate__slideOutRightWith3D {
+  animation-name: slideOutRightWith3D;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.animate__animated {
+  animation-duration: 0.45s; /* Ajusta la duración según sea necesario */
+  animation-timing-function: cubic-bezier(0.23, 0.1, 0, 1);
+}
