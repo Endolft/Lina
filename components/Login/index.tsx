@@ -3,11 +3,12 @@ import { MiniKit, WalletAuthInput } from "@worldcoin/minikit-js";
 import { useState } from "react";
 import Button from "@/components/Button";
 import { useRouter } from "next/navigation";
+import { v4 as uuidv4 } from "uuid";
 
 const walletAuthInput = (nonce: string): WalletAuthInput => {
   return {
     nonce,
-    requestId: "0",
+    requestId: uuidv4(), // 🔥 Genera un ID único en cada intento
     expirationTime: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
     notBefore: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
     statement:
@@ -29,46 +30,51 @@ export const Login = () => {
   const handleLogin = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`/api/nonce`);
-      const { nonce } = await res.json();
 
+      // 🔍 Obtiene nonce desde el backend
+      const res = await fetch(`/api/nonce`);
+      if (!res.ok) {
+        throw new Error("Error obteniendo el nonce");
+      }
+      const { nonce } = await res.json();
+      console.log("Nonce obtenido:", nonce);
+
+      // 🔍 Ejecuta la autenticación de Worldcoin
       const { finalPayload } = await MiniKit.commandsAsync.walletAuth(
         walletAuthInput(nonce)
       );
 
       if (finalPayload.status === "error") {
+        console.error("Worldcoin authentication error:", finalPayload);
         setLoading(false);
         return;
-      } else {
-        const response = await fetch("/api/auth/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            payload: finalPayload,
-            nonce,
-          }),
-        });
-        router.push("/farm/create");
+      }
 
-        if (response.status === 200) {
-          setUser(MiniKit.user);
-        }
-        setLoading(false);
+      // 🔍 Envia la respuesta al backend
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ payload: finalPayload, nonce }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Usuario autenticado:", data.user);
+        setUser(data.user); // ✅ Usa el usuario devuelto por el backend
+        router.push("/farm/create");
+      } else {
+        console.error("Error en la autenticación:", await response.text());
       }
     } catch (error) {
       console.error("Login error:", error);
+    } finally {
       setLoading(false);
     }
   };
 
   const handleLogout = async () => {
     try {
-      await fetch("/api/auth/logout", {
-        method: "POST",
-      });
-
+      await fetch("/api/auth/logout", { method: "POST" });
       setUser(null);
     } catch (error) {
       console.error("Logout error:", error);
@@ -80,6 +86,14 @@ export const Login = () => {
       <Button onClick={handleLogin} disabled={loading}>
         {loading ? "Connecting..." : "Sign in"}
       </Button>
+      {user && (
+        <div className="mt-4 text-center">
+          <p>Welcome, {user.username || "User"}!</p>
+          <button onClick={handleLogout} className="mt-2 text-red-500">
+            Logout
+          </button>
+        </div>
+      )}
     </div>
   );
 };
