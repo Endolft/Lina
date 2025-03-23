@@ -3,7 +3,12 @@ pipeline {
     environment {
         DOCKER_TAG = 'lina-frontend'
         PORT = "3024"
-    }
+        NEXT_PUBLIC_WORLDCOIN_APP_ID=Credentials(NEXT_PUBLIC_WORLDCOIN_APP_ID)
+        NEXT_PUBLIC_WORLDCOIN_API_KEY=Credentials(NEXT_PUBLIC_WORLDCOIN_API_KEY)
+        NEXT_PUBLIC_WORLDCOIN_ACTION_ID=Credentials(NEXT_PUBLIC_WORLDCOIN_ACTION_ID)    
+        NEXT_PUBLIC_WORLDCOIN_SIGNAL=Credentials(NEXT_PUBLIC_WORLDCOIN_SIGNAL)
+        JWT_SECRET=Credentials(LINA_JWT_SECRET)
+ }
     stages {
         stage('Build') {
             steps {
