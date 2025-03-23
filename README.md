@@ -355,3 +355,11 @@ Whether deployed on World Chain (for gas-free transactions and global reach), Ma
 
 - **ZKsync**: [https://sepolia.explorer.zksync.io/address/0x775e99241FBAEC469bF24Fa2BEDe28040C34Cde2](https://sepolia.explorer.zksync.io/address/0x775e99241FBAEC469bF24Fa2BEDe28040C34Cde2)  
 - **WorldChain**: [https://worldscan.org/address/0xb226c9953eA8E5051eCf19E214bEFD1F5A49F448#code](https://worldscan.org/address/0xb226c9953eA8E5051eCf19E214bEFD1F5A49F448#code)
+
+## Video Demo
+A video of how it works is available at this [link](https://www.youtube.com/watch?v=OZjqsoWcy1Y)
+
+## WorldApp Demo
+To use a demo in worldApp, scan this QR code:
+
+![WhatsApp Image 2025-03-23 at 07 35 53](https://github.com/user-attachments/assets/826226ad-3f38-4b84-a194-f62cb2073699)
