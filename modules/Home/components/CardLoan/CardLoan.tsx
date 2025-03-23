@@ -3,10 +3,11 @@ import React, { useEffect, useState } from "react";
 import UpdateFarmButton from "../UpdateFarmButton";
 import Button from "@/components/Button";
 import chevronLeft from "@/public/assets/chevron-left.svg";
+import { useRouter } from "next/navigation";
 
 const CardLoan = () => {
   const [newLoad, setNewLoad] = useState(false);
-
+  const router = useRouter();
   useEffect(() => {
     const newLoad = localStorage.getItem("newLoad");
     if (newLoad) {
@@ -37,7 +38,7 @@ const CardLoan = () => {
         {newLoad ? (
           <Button
             label="Get Now"
-            handleClick={() => {}}
+            handleClick={() => router.push("/farm/loan")}
             className="!bg-[#1F2937]"
             iconEnd={chevronLeft}
           />
