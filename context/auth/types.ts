@@ -1,7 +1,5 @@
 //  ------------ API ------------ //
 
-import { APIUser } from "./services/UserServices";
-
 export enum ROLES {
   ADMIN = 1,
   USER = 2,
@@ -16,7 +14,7 @@ export interface LoginPayload {
 
 export type UserRole = ROLES | null;
 
-export interface User extends APIUser {}
+export interface User {}
 
 interface BaseAuthState {
   loading: boolean;
