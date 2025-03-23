@@ -22,7 +22,13 @@ pipeline {
                 sh 'docker stop $DOCKER_TAG || echo Nothing to stop'
                 sh 'docker rm $DOCKER_TAG || echo Nothing to remove'
                 echo 'Deploying....'
-                sh 'docker run -d -e BASE_PATH -p $PORT:3000 --name $DOCKER_TAG $DOCKER_TAG:1.0'
+                sh 'docker run -d -e BASE_PATH
+                -e NEXT_PUBLIC_WORLDCOIN_APP_ID
+                -e NEXT_PUBLIC_WORLDCOIN_API_KEY
+                -e NEXT_PUBLIC_WORLDCOIN_ACTION_ID
+                -e NEXT_PUBLIC_WORLDCOIN_SIGNAL
+                -e JWT_SECRET
+                 -p $PORT:3000 --name $DOCKER_TAG $DOCKER_TAG:1.0'
             }
         }
     }
