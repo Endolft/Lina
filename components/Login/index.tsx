@@ -38,7 +38,6 @@ export const Login = () => {
         throw new Error("Error obteniendo el nonce");
       }
       const { nonce } = await res.json();
-      console.log("Nonce obtenido:", nonce);
 
       // 🔍 Ejecuta la autenticación de Worldcoin
       const { finalPayload } = await MiniKit.commandsAsync.walletAuth(

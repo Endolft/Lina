@@ -1,7 +1,12 @@
 // -------- VIEW / CONTROLLER -------- //
 
+import { NavigationState } from "@/context/hooks/useInternalNavigationHistory";
+
 export interface UpdateFarmViewProps {
-  name: string;
+  animationType: NavigationState;
+  activeDot: number;
+  totalDots: number;
+  renderCurrentView: () => JSX.Element;
 }
 
 export type UpdateFarmViewType = React.FC<UpdateFarmViewProps>;

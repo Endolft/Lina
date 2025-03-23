@@ -1,8 +1,19 @@
 import Card from "@/components/Card";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import UpdateFarmButton from "../UpdateFarmButton";
+import Button from "@/components/Button";
+import chevronLeft from "@/public/assets/chevron-left.svg";
 
 const CardLoan = () => {
+  const [newLoad, setNewLoad] = useState(false);
+
+  useEffect(() => {
+    const newLoad = localStorage.getItem("newLoad");
+    if (newLoad) {
+      setNewLoad(true);
+    }
+  }, []);
+
   return (
     <Card
       rounded="md"
@@ -11,12 +22,28 @@ const CardLoan = () => {
       padding="xl"
     >
       <h6 className="font-bold"> Need money to improve your farm?</h6>
-      <h6>
-        To get access to loans with the lowest interest rates, upgrade your farm
-        first
-      </h6>
+      {newLoad ? (
+        <div>
+          <p>Maximun loan ammount</p>
+          <h1>$10.000 USD </h1>
+        </div>
+      ) : (
+        <h6>
+          To get access to loans with the lowest interest rates, upgrade your
+          farm first
+        </h6>
+      )}
       <div className="w-full flex items-end justify-end">
-        <UpdateFarmButton />
+        {newLoad ? (
+          <Button
+            label="Get Now"
+            handleClick={() => {}}
+            className="!bg-[#1F2937]"
+            iconEnd={chevronLeft}
+          />
+        ) : (
+          <UpdateFarmButton />
+        )}{" "}
       </div>
     </Card>
   );

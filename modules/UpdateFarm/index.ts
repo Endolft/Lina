@@ -1,3 +1,3 @@
-import UpdateFarmView from './UpdateFarmView';
+import UpdateFarmView from "./UpdateFarmView";
 
 export default UpdateFarmView;

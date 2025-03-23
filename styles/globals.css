@@ -139,6 +139,54 @@ p,
   font: var(--font-s);
 }
 
+.loader {
+  width: 64px;
+  height: 64px;
+  position: relative;
+}
+
+.loader::before,
+.loader::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 6px solid transparent;
+  box-sizing: border-box;
+}
+
+.loader::before {
+  border-top-color: #56b2a3;
+  border-left-color: #56b2a3;
+  animation: spin1 1.5s linear infinite;
+}
+
+.loader::after {
+  border-bottom-color: #7daa72;
+  border-right-color: #7daa72;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes spin1 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin2 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+
 /* -- Responsive REM -- */
 @media screen and (max-width: 320px) {
   :root {
@@ -169,3 +217,5 @@ p,
     font-size: 24px;
   }
 }
+
+
