@@ -1,4 +1,4 @@
-const basePath = "/lina";
+const basePath = "";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
